@@ -1,7 +1,6 @@
 package algo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
@@ -46,7 +45,7 @@ public class SortingAlgo {
 //		bubbleSort(arr, arrLen);
 //		bucketSort(arrLen);
 //		combSort(arr, arrLen, arrLen);
-		countingSort(arr, arrLen);
+//		countingSort(arr, arrLen);
 		AlgoUtil.printArray("After sort", arr);
 	}
 
