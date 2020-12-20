@@ -1,2 +1,2 @@
 # javaAlogo
-algorithm in java
+algorithm in java mostly sorting algo
