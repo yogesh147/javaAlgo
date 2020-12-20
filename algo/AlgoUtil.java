@@ -15,7 +15,6 @@ public class AlgoUtil {
 		System.out.println(string + " no of element is :: " + arr.length);
 //		Arrays.stream(arr).forEach(System.out::println);
         System.out.println(Arrays.toString(arr));
-
 	}
 
 	/**
