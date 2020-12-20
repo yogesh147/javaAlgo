@@ -112,9 +112,7 @@ public class SortingAlgo {
 				arr[index++] = buck[i].get(j);
 			}
 		}
-
 		AlgoUtil.printArray("After bucket sort:: ", arr);
-
 	}
 
 	/**
