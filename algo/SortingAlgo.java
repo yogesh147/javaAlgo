@@ -26,6 +26,7 @@ public class SortingAlgo {
 		long end = System.currentTimeMillis();
 		long milli = end - start;
 		long sec = TimeUnit.MILLISECONDS.toSeconds(milli);
+		System.out.println();
 		System.out.print("Total Time to execute " + milli + " millis or " + sec + " sec");
 	}
 
@@ -39,14 +40,16 @@ public class SortingAlgo {
 		Random rand = new Random();
 		int arr[] = new int[arrLen];
 		for (int i = 0; i < arrLen; i++) {
-			arr[i] = rand.nextInt(10);
+			arr[i] = rand.nextInt(100);
 		}
 		AlgoUtil.printArray("Before sort", arr);
 //		bubbleSort(arr, arrLen);
 //		bucketSort(arrLen);
 //		combSort(arr, arrLen, arrLen);
 //		countingSort(arr, arrLen);
+		heapSort(arr);
 		AlgoUtil.printArray("After sort", arr);
+		System.out.println("Is Sorted --> " + AlgoUtil.isSorted(arr));
 	}
 
 	/**
@@ -186,6 +189,22 @@ public class SortingAlgo {
 			arr[i] = out[i];
 		}
 
+	}
+
+	/**
+	 * 
+	 * @param arr is array
+	 */
+
+	private static void heapSort(int[] arr) {
+		int n = arr.length;
+		for (int i = n / 2 - 1; i >= 0; i--) {
+			AlgoUtil.heapify(arr, n, i);
+		}
+		for (int i = n - 1; i > 0; i--) {
+			AlgoUtil.swapCombElem(arr, i, 0);
+			AlgoUtil.heapify(arr, i, 0);
+		}
 	}
 
 }

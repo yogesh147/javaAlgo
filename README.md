@@ -58,4 +58,4 @@ b) Like Heap Sort, it’s unstable!
 
 4) Go to this link for more info :- https://en.wikipedia.org/wiki/Sorting_algorithm
 
-    
+5) View sortAlgoTable for my personalized sorting method.    
