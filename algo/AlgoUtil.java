@@ -12,9 +12,12 @@ public class AlgoUtil {
 	 */
 
 	public static void printArray(String string, int[] arr) {
+		System.out.println();
 		System.out.println(string + " no of element is :: " + arr.length);
+		System.out.println();
 //		Arrays.stream(arr).forEach(System.out::println);
-        System.out.println(Arrays.toString(arr));
+		System.out.println(Arrays.toString(arr));
+		System.out.println();
 	}
 
 	/**
@@ -66,7 +69,7 @@ public class AlgoUtil {
 	}
 
 	/*
-	 * swap elements for comb Sort
+	 * swap array elements
 	 * 
 	 */
 
@@ -76,7 +79,7 @@ public class AlgoUtil {
 		arr[i] = arr[i] - arr[j];
 		return arr;
 	}
-	
+
 	/**
 	 * 
 	 * @param arr is array
@@ -93,4 +96,37 @@ public class AlgoUtil {
 		return max;
 	}
 
+	/**
+	 * 
+	 * @param arr is array
+	 * @param n   is length of array
+	 * @param i   is starting node
+	 */
+
+	public static void heapify(int[] arr, int n, int i) {
+		int largest = i; // Initialize largest as root
+		int l = 2 * i + 1; // find left node
+		int r = 2 * i + 2; // find right node
+		if (l < n && arr[l] > arr[largest]) {
+			largest = l;
+		}
+		if (r < n && arr[r] > arr[largest]) {
+			largest = r;
+		}
+		if (largest != i) {
+			swapCombElem(arr, i, largest);
+			// Recursively heapify the affected sub-tree
+			heapify(arr, n, largest);
+		}
+	}
+
+	public static boolean isSorted(int[] arr) {
+		for (int i = 0; i < arr.length-1; i++) {
+			if (arr[i] > arr[i + 1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }
