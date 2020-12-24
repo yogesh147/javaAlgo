@@ -120,13 +120,95 @@ public class AlgoUtil {
 		}
 	}
 
+	/**
+	 * 
+	 * @param arr is array
+	 * @return true or false to check whether array is sorted or not
+	 */
+
 	public static boolean isSorted(int[] arr) {
-		for (int i = 0; i < arr.length-1; i++) {
+		for (int i = 0; i < arr.length - 1; i++) {
 			if (arr[i] > arr[i + 1]) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
+	/**
+	 * 
+	 * @param arr is array
+	 * @param l   is left
+	 * @param m   is middle index
+	 * @param r   is right index
+	 */
+
+	public static void divideConquer(int[] arr, int l, int m, int r) {
+
+		// Find sizes of two sub arrays
+		int n1 = m - l + 1;
+		int n2 = r - m;
+
+		/* Create temp arrays */
+		int L[] = new int[n1];
+		int R[] = new int[n2];
+
+		/* Copy data to temp arrays */
+		for (int i = 0; i < n1; ++i)
+			L[i] = arr[l + i];
+		for (int j = 0; j < n2; ++j)
+			R[j] = arr[m + 1 + j];
+
+		/* Merge the temp arrays */
+
+		// Initial indexes of first and second subarrays
+		int i = 0, j = 0;
+
+		// Initial index of merged subarry array
+		int k = l;
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j]) {
+				arr[k] = L[i];
+				i++;
+			} else {
+				arr[k] = R[j];
+				j++;
+			}
+			k++;
+		}
+
+		/* Copy remaining elements of L[] if any */
+		while (i < n1) {
+			arr[k] = L[i];
+			i++;
+			k++;
+		}
+
+		/* Copy remaining elements of R[] if any */
+		while (j < n2) {
+			arr[k] = R[j];
+			j++;
+			k++;
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param arr is array
+	 * @param n   in length of array
+	 * @apiNote find how far or close the array to be sort
+	 */
+	public static void getInversionCount(int[] arr, int n) {
+		int inv_count = 0;
+		for (int i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (arr[i] > arr[j]) {
+					inv_count++;
+				}
+			}
+		}
+		System.out.println("Inversion Count is :: " + inv_count);
+	}
+
 }
