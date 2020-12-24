@@ -43,11 +43,14 @@ public class SortingAlgo {
 			arr[i] = rand.nextInt(100);
 		}
 		AlgoUtil.printArray("Before sort", arr);
+
+		AlgoUtil.getInversionCount(arr, arrLen);
 //		bubbleSort(arr, arrLen);
 //		bucketSort(arrLen);
 //		combSort(arr, arrLen, arrLen);
 //		countingSort(arr, arrLen);
 //		heapSort(arr);
+		mergeSort(arr, 0, arrLen - 1);
 		insertionSort(arr);
 		AlgoUtil.printArray("After sort", arr);
 		System.out.println("Is Sorted --> " + AlgoUtil.isSorted(arr));
@@ -225,6 +228,20 @@ public class SortingAlgo {
 			arr[j + 1] = temp;
 		}
 	}
-	
+
+	/**
+	 * 
+	 * @param arr is array
+	 *
+	 */
+
+	private static void mergeSort(int[] arr, int l, int r) {
+		if (l < r) {
+			int m = (l + r) / 2;
+			mergeSort(arr, l, m);
+			mergeSort(arr, m + 1, r);
+			AlgoUtil.divideConquer(arr, l, m, r);
+		}
+	}
 
 }
