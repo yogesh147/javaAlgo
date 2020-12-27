@@ -2,6 +2,9 @@ package algo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class AlgoUtil {
 
@@ -12,12 +15,11 @@ public class AlgoUtil {
 	 */
 
 	public static void printArray(String string, int[] arr) {
-		System.out.println();
+		System.out.println("===========================================");
 		System.out.println(string + " no of element is :: " + arr.length);
-		System.out.println();
 //		Arrays.stream(arr).forEach(System.out::println);
 		System.out.println(Arrays.toString(arr));
-		System.out.println();
+		System.out.println("===========================================");
 	}
 
 	/**
@@ -59,7 +61,7 @@ public class AlgoUtil {
 
 	/**
 	 * 
-	 * @param gap , intially it is array length
+	 * @param gap, initially it is array length
 	 * @return gap size
 	 */
 
@@ -69,8 +71,7 @@ public class AlgoUtil {
 	}
 
 	/*
-	 * swap array elements
-	 * 
+	 * swap array elements where i and j are index of same array
 	 */
 
 	public static int[] swapCombElem(int[] arr, int i, int j) {
@@ -127,6 +128,8 @@ public class AlgoUtil {
 	 */
 
 	public static boolean isSorted(int[] arr) {
+		System.out.println();
+		System.out.println();
 		for (int i = 0; i < arr.length - 1; i++) {
 			if (arr[i] > arr[i + 1]) {
 				return false;
@@ -209,6 +212,70 @@ public class AlgoUtil {
 			}
 		}
 		System.out.println("Inversion Count is :: " + inv_count);
+		System.out.println();
+		System.out.println();
+	}
+
+	/**
+	 * 
+	 * @param arr   is array
+	 * @param first is first element of partition
+	 * @param last  is lost element of partition
+	 * @return partition sorted element for that index
+	 */
+
+	public static int partition(int[] arr, int first, int last) {
+		int pivot = arr[last];
+		int i = first - 1;
+		for (int j = first; j < last; j++) {
+			if (arr[j] < pivot) {
+				i++;
+				int temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+		int temp = arr[i + 1];
+		arr[i + 1] = arr[last];
+		arr[last] = temp;
+		return i + 1;
+	}
+
+	/**
+	 * 
+	 * @param actualArr is actual array for sorting
+	 * @param arr       is sorted array
+	 * @return whether it have same element or different element
+	 */
+
+	public static boolean isArrayMatch(int[] actualArr, int[] arr) {
+		if (actualArr != null && arr != null && actualArr.length == arr.length) {
+			for (int i = 0; i < actualArr.length; i++) {
+				int num = actualArr[i];
+				arr = convertArrayToArrayListToArray(arr, num);
+			}
+		}
+		if (arr.length == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param arr is array
+	 * @param num is value to find arr index
+	 * @return array after index element deleted if found
+	 */
+
+	private static int[] convertArrayToArrayListToArray(int[] arr, int num) {
+		List<Integer> list = IntStream.of(arr).boxed().collect(Collectors.toList());
+		int index = list.indexOf(num);
+		if (index != -1) {
+			list.remove(index);
+		}
+		return list.stream().mapToInt(Integer::intValue).toArray();
 	}
 
 }
