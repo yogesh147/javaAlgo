@@ -1,6 +1,7 @@
 package algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
@@ -38,22 +39,27 @@ public class SortingAlgo {
 	public static void callDriverMethod(int arrLen) {
 
 		Random rand = new Random();
-		int arr[] = new int[arrLen];
+		int actualArr[] = new int[arrLen];
 		for (int i = 0; i < arrLen; i++) {
-			arr[i] = rand.nextInt(100);
+			actualArr[i] = rand.nextInt(100);
 		}
+		// deep copy of array
+		int arr[] = actualArr.clone();
+//		int arr[] = { 5, 2, 10, 8, 1 };
 		AlgoUtil.printArray("Before sort", arr);
-
 		AlgoUtil.getInversionCount(arr, arrLen);
 //		bubbleSort(arr, arrLen);
 //		bucketSort(arrLen);
 //		combSort(arr, arrLen, arrLen);
 //		countingSort(arr, arrLen);
 //		heapSort(arr);
-		mergeSort(arr, 0, arrLen - 1);
-		insertionSort(arr);
+//		insertionSort(arr);
+//		mergeSort(arr, 0, arrLen - 1);
+		quickSort(arr, 0, arrLen - 1);
+		
 		AlgoUtil.printArray("After sort", arr);
 		System.out.println("Is Sorted --> " + AlgoUtil.isSorted(arr));
+		System.out.println("Is Element Matched --> " + AlgoUtil.isArrayMatch(actualArr, arr));
 	}
 
 	/**
@@ -232,7 +238,8 @@ public class SortingAlgo {
 	/**
 	 * 
 	 * @param arr is array
-	 *
+	 * @param l   is leftmost element
+	 * @param r   is rightmost element
 	 */
 
 	private static void mergeSort(int[] arr, int l, int r) {
@@ -241,6 +248,24 @@ public class SortingAlgo {
 			mergeSort(arr, l, m);
 			mergeSort(arr, m + 1, r);
 			AlgoUtil.divideConquer(arr, l, m, r);
+		}
+	}
+
+	/**
+	 * 
+	 * @param arr   is array
+	 * @param first is first element
+	 * @param last  is last element
+	 */
+
+	private static void quickSort(int[] arr, int first, int last) {
+		if (first < last) {
+			// pi is partitioning index, arr[pi] is now at right place
+			int pi = AlgoUtil.partition(arr, first, last);
+			// Recursively sort elements before
+			quickSort(arr, first, pi - 1);
+			// partition and after partition
+			quickSort(arr, pi + 1, last);
 		}
 	}
 
