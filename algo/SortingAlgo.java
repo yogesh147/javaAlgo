@@ -55,8 +55,9 @@ public class SortingAlgo {
 //		heapSort(arr);
 //		insertionSort(arr);
 //		mergeSort(arr, 0, arrLen - 1);
-		quickSort(arr, 0, arrLen - 1);
-		
+//		quickSort(arr, 0, arrLen - 1);
+//		arr = radixSort(arr, arrLen);
+		selectionSort(arr, arrLen);
 		AlgoUtil.printArray("After sort", arr);
 		System.out.println("Is Sorted --> " + AlgoUtil.isSorted(arr));
 		System.out.println("Is Element Matched --> " + AlgoUtil.isArrayMatch(actualArr, arr));
@@ -91,7 +92,7 @@ public class SortingAlgo {
 	 * 
 	 */
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	private static void bucketSort(int len) {
 		float arr[] = new float[len];
 		for (int i = 0; i < len; i++) {
@@ -135,6 +136,7 @@ public class SortingAlgo {
 	 * @param gsize is gap size after shrink of array
 	 */
 
+	@SuppressWarnings("unused")
 	private static void combSort(int[] arr, int len, int gSize) {
 		int gap = AlgoUtil.getGapSize(gSize);
 		if (gap >= 1) {
@@ -160,6 +162,7 @@ public class SortingAlgo {
 	 * 
 	 */
 
+	@SuppressWarnings("unused")
 	private static void countingSort(int[] arr, int size) {
 
 		// find max element if array
@@ -206,6 +209,7 @@ public class SortingAlgo {
 	 * @param arr is array
 	 */
 
+	@SuppressWarnings("unused")
 	private static void heapSort(int[] arr) {
 		int n = arr.length;
 		for (int i = n / 2 - 1; i >= 0; i--) {
@@ -222,6 +226,7 @@ public class SortingAlgo {
 	 * @param arr is array
 	 */
 
+	@SuppressWarnings("unused")
 	private static void insertionSort(int[] arr) {
 		int n = arr.length;
 		for (int i = 1; i < n; i++) {
@@ -242,6 +247,7 @@ public class SortingAlgo {
 	 * @param r   is rightmost element
 	 */
 
+	@SuppressWarnings("unused")
 	private static void mergeSort(int[] arr, int l, int r) {
 		if (l < r) {
 			int m = (l + r) / 2;
@@ -258,6 +264,7 @@ public class SortingAlgo {
 	 * @param last  is last element
 	 */
 
+	@SuppressWarnings("unused")
 	private static void quickSort(int[] arr, int first, int last) {
 		if (first < last) {
 			// pi is partitioning index, arr[pi] is now at right place
@@ -266,6 +273,73 @@ public class SortingAlgo {
 			quickSort(arr, first, pi - 1);
 			// partition and after partition
 			quickSort(arr, pi + 1, last);
+		}
+	}
+
+	/**
+	 * 
+	 * @param arr is array
+	 * @param len is length of array
+	 * @return sorted array
+	 * @apiNote sort LSB -> MSB by using internally counting sort
+	 */
+
+	private static int[] radixSort(int[] arr, int len) {
+		int max = AlgoUtil.maxArrElem(arr);
+		String s = Integer.toString(max);
+		int divLen = s.length();
+		int p = 1;
+		while (divLen > 0) {
+			int countArray[] = new int[len];
+			for (int i = 0; i < arr.length; i++) {
+				String number = String.valueOf(arr[i]);
+				if ( (number.length() - p >= 0) && number.charAt(number.length() - p) != -1) {
+					countArray[i] = (Character.digit(number.charAt(number.length() - p), 10)) != -1
+							? Character.digit(number.charAt(number.length() - p), 10)
+							: 0;
+				} else {
+					countArray[i] = 0;
+				}
+
+			}
+			// apply count sort
+			countingSort(countArray, len);
+			int tempArray[] = new int[len];
+			int[] tArr = arr.clone();
+			for (int i = 0; i < countArray.length; i++) {
+				int countNum = countArray[i];
+				inner: for (int j = 0; j < tArr.length; j++) {
+					String n = String.valueOf(tArr[j]);
+					int ch = ((n.length() - p >= 0) && (Character.digit(n.charAt(n.length() - p), 10)) != -1)
+							? Character.digit(n.charAt(n.length() - p), 10)
+							: 0;
+					if (countNum == ch) {
+						tempArray[i] = tArr[j];
+						tArr = AlgoUtil.deleteElementAtIndex(tArr, j);
+						break inner;
+					}
+				}
+			}
+			arr = tempArray.clone();
+			divLen--;
+			p++;
+		}
+		return arr;
+	}
+	
+	
+	/**
+	 * 
+	 * @param arr is array
+	 * @param len is length of array
+	 */
+	
+	private static void selectionSort(int[] arr, int len) {
+		for (int i = 0; i < len; i++) {
+			int pos = AlgoUtil.getSmallestElem(arr, len, i);
+			if (pos != i) {
+				AlgoUtil.swapCombElem(arr, i, pos);
+			}
 		}
 	}
 

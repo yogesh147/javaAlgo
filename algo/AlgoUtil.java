@@ -278,4 +278,35 @@ public class AlgoUtil {
 		return list.stream().mapToInt(Integer::intValue).toArray();
 	}
 
+	/**
+	 * 
+	 * @param arr is array
+	 * @param index is index to delete element
+	 * @return new array after delete element 
+	 */
+	
+	public static int[] deleteElementAtIndex(int[] arr, int index) {
+		return IntStream.range(0, arr.length).filter(i -> i != index).map(i -> arr[i]).toArray();
+	}
+
+	/**
+	 * 
+	 * @param arr is array
+	 * @param len is length of array
+	 * @param i is excluding array index
+	 * @return smallest element position
+	 */
+	
+	public static int getSmallestElem(int[] arr, int len, int i) {
+		int pos = i;
+		int small = arr[i];
+		for (int j = i + 1; j < len; j++) {
+			if (arr[j] < small) {
+				small = arr[j];
+				pos = j;
+			}
+		}
+		return pos;
+	}
+
 }
