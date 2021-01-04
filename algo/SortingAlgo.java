@@ -57,7 +57,8 @@ public class SortingAlgo {
 //		mergeSort(arr, 0, arrLen - 1);
 //		quickSort(arr, 0, arrLen - 1);
 //		arr = radixSort(arr, arrLen);
-		selectionSort(arr, arrLen);
+//		selectionSort(arr, arrLen);
+		shellSort(arr, arrLen);
 		AlgoUtil.printArray("After sort", arr);
 		System.out.println("Is Sorted --> " + AlgoUtil.isSorted(arr));
 		System.out.println("Is Element Matched --> " + AlgoUtil.isArrayMatch(actualArr, arr));
@@ -293,7 +294,7 @@ public class SortingAlgo {
 			int countArray[] = new int[len];
 			for (int i = 0; i < arr.length; i++) {
 				String number = String.valueOf(arr[i]);
-				if ( (number.length() - p >= 0) && number.charAt(number.length() - p) != -1) {
+				if ((number.length() - p >= 0) && number.charAt(number.length() - p) != -1) {
 					countArray[i] = (Character.digit(number.charAt(number.length() - p), 10)) != -1
 							? Character.digit(number.charAt(number.length() - p), 10)
 							: 0;
@@ -326,19 +327,43 @@ public class SortingAlgo {
 		}
 		return arr;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param arr is array
 	 * @param len is length of array
 	 */
-	
+
 	private static void selectionSort(int[] arr, int len) {
 		for (int i = 0; i < len; i++) {
 			int pos = AlgoUtil.getSmallestElem(arr, len, i);
 			if (pos != i) {
 				AlgoUtil.swapCombElem(arr, i, pos);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param arr is array
+	 * @param n   is length of array
+	 * 
+	 */
+
+	private static void shellSort(int[] arr, int n) {
+		int i, j, k;
+		// pass loop half by half
+		for (i = n / 2; i > 0; i = i / 2) {
+			// loop to rightward direction from gap to last element 
+			for (j = i; j < n; j++) {
+//				loop from leftward direction from first element to gap 
+				for (k = j - i; k >= 0; k = k - i) {
+					if (arr[k + i] >= arr[k])
+						break;
+					else {
+						AlgoUtil.swapCombElem(arr, k, k + i);
+					}
+				}
 			}
 		}
 	}
