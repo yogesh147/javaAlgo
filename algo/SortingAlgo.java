@@ -58,7 +58,8 @@ public class SortingAlgo {
 //		quickSort(arr, 0, arrLen - 1);
 //		arr = radixSort(arr, arrLen);
 //		selectionSort(arr, arrLen);
-		shellSort(arr, arrLen);
+//		shellSort(arr, arrLen);
+		cocktailSort(arr, arrLen);
 		AlgoUtil.printArray("After sort", arr);
 		System.out.println("Is Sorted --> " + AlgoUtil.isSorted(arr));
 		System.out.println("Is Element Matched --> " + AlgoUtil.isArrayMatch(actualArr, arr));
@@ -365,6 +366,43 @@ public class SortingAlgo {
 					}
 				}
 			}
+		}
+	}
+	
+
+	/**
+	 * 
+	 * @param arr is array
+	 * @param n   is length of array
+	 * 
+	 */
+
+	private static void cocktailSort(int[] arr, int n) {
+		boolean isAgainSort = false;
+		boolean dirLeftToRight = true;
+
+		if (dirLeftToRight) {
+			for (int k = 0; k < n - 1; k++) {
+				if (arr[k] > arr[k + 1]) {
+					AlgoUtil.swapElem(arr, k);
+					isAgainSort = true;
+					dirLeftToRight = false;
+
+				}
+			}
+		}
+
+		if (!dirLeftToRight) {
+			for (int k = n - 1; k > 0; k--) {
+				if (arr[k] < arr[k - 1]) {
+					AlgoUtil.swapCombElem(arr, k, k - 1);
+					isAgainSort = dirLeftToRight = true;
+				}
+			}
+		}
+
+		if (isAgainSort) {
+			cocktailSort(arr, n);
 		}
 	}
 
