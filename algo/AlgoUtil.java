@@ -261,7 +261,7 @@ public class AlgoUtil {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param arr is array
@@ -280,11 +280,11 @@ public class AlgoUtil {
 
 	/**
 	 * 
-	 * @param arr is array
+	 * @param arr   is array
 	 * @param index is index to delete element
-	 * @return new array after delete element 
+	 * @return new array after delete element
 	 */
-	
+
 	public static int[] deleteElementAtIndex(int[] arr, int index) {
 		return IntStream.range(0, arr.length).filter(i -> i != index).map(i -> arr[i]).toArray();
 	}
@@ -293,10 +293,10 @@ public class AlgoUtil {
 	 * 
 	 * @param arr is array
 	 * @param len is length of array
-	 * @param i is excluding array index
+	 * @param i   is excluding array index
 	 * @return smallest element position
 	 */
-	
+
 	public static int getSmallestElem(int[] arr, int len, int i) {
 		int pos = i;
 		int small = arr[i];
@@ -307,6 +307,30 @@ public class AlgoUtil {
 			}
 		}
 		return pos;
+	}
+
+	/**
+	 * 
+	 * @param string is arr reference
+	 * @param arr    is 2D array
+	 */
+
+	public static void print2DArray(String string, String[][] arr) {
+
+		// \u000d System.out.println(string);
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+//				if (i == 0 || j == 0 || i == arr.length - 1 || j == arr[i].length - 1) {
+					System.out.print(arr[i][j]);
+					System.out.print(" ");
+
+//				} else {
+//					System.out.print("  ");
+//				}
+				
+			}
+			System.out.println();
+		}
 	}
 
 }
